@@ -79,7 +79,7 @@ d:Ge/Scorer/HLY        =  0.5 cm
 d:Ge/Scorer/HLZ        =  3 cm
 s:Ge/Scorer/Color      =  "blue"
 b:Ge/Scorer/IsParallel = "T"
-i:Ge/Scorer/ZBins      = 80
+i:Ge/Scorer/ZBins      = 100
 d:Ge/Scorer/TransZ     = 12 cm
 
 # DoseToMedium for the dose or EnergyFluence for the kerma calculation

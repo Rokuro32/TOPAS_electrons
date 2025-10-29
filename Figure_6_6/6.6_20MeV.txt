@@ -54,7 +54,7 @@ s:So/Source/BeamPositionCutoffShape  = "Rectangle"
 d:So/Source/BeamPositionCutoffX      = 5. cm # Half length of field size in x
 d:So/Source/BeamPositionCutoffY      = 5. cm # Half length of field size in y
 s:So/Source/BeamAngularDistribution  = "None"
-i:So/Source/NumberOfHistoriesInRun   = 20000000
+i:So/Source/NumberOfHistoriesInRun   = 10000000
 
 s:Ge/BeamPosition/Parent = "World"
 s:Ge/BeamPosition/Type   = "Group"

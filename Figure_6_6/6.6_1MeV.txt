@@ -79,7 +79,7 @@ d:Ge/Scorer/HLY        =  0.5 cm
 d:Ge/Scorer/HLZ        =  1 cm
 s:Ge/Scorer/Color      =  "blue"
 b:Ge/Scorer/IsParallel = "T"
-i:Ge/Scorer/ZBins      = 80
+i:Ge/Scorer/ZBins      = 100
 d:Ge/Scorer/TransZ     = 14 cm
 
 # DoseToMedium for the dose or EnergyFluence for the kerma calculation
@@ -98,10 +98,10 @@ s:Sc/DoseOnRTGrid/OutputFile                 = "6.6_1MeV"
 # ===================================================== #
 
 i:Ts/NumberOfThreads  = 7
-b:Gr/Enable           = "T" # Set to false F to run simulation without graphics
-b:Ts/PauseBeforeQuit  = "T" # Set to false F to run simulation without graphics
+#b:Gr/Enable           = "T" # Set to false F to run simulation without graphics
+#b:Ts/PauseBeforeQuit  = "T" # Set to false F to run simulation without graphics
 
-s:Gr/View/Type             = "OpenGL"
+#s:Gr/View/Type             = "OpenGL"
 #d:Gr/View/Theta            = 90 deg
 #d:Gr/View/PerspectiveAngle = 50 deg
 #b:Gr/View/IncludeAxes      = "True"
