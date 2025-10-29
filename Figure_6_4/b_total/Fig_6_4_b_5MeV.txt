@@ -1,0 +1,116 @@
+
+# =========================================================                          
+# This file provides a simple setup to study the percentage 
+# depth dose curves generated inside a 30x30x30 cm3 water cube.
+#
+# The initial beam can be either photons or electrons.
+#
+# The position distribution of the beam is Flat (all initial
+# positions have the same weight, no gaussian)
+#
+# Users can easily define the field size by changing
+# the BeamPositionCutoff parameters
+#
+# The beam is set to parallel by setting the angular
+# distribution to None
+#
+# The beam is monoenergetic by setting the energy spread
+# to 0
+#
+# The beam starts at the phantom Z-surface by indicating
+# the parameter BeamPosition/TransZ = Ge/World/HLZ
+#
+# The scorer is a box that is binned in the Z direction.
+# The number of bins of such geometry controls the slab thickness.
+# The half-lengths should be adjusted depending on the field size
+# and the particle type, photons or electrons.
+# ==========================================================
+
+# ====================================================== #
+#                    World and physics                   #
+# ====================================================== #
+
+# 30 cm side water cube
+d:Ge/World/HLX = 15 cm
+d:Ge/World/HLY = 15 cm
+d:Ge/World/HLZ = 15 cm
+s:Ge/World/Material = "G4_WATER"
+
+# Best physics list for medical physics applications
+# according to the G4-Med benchmarking group 10.1002/mp.14226
+sv:Ph/Default/Modules = 1 "g4em-standard_opt4"
+
+# ====================================================== #
+#            Source component and its position           #
+# ====================================================== #
+
+s:So/Source/Type                     = "Beam" 
+s:So/Source/Component                = "BeamPosition"
+s:So/Source/BeamParticle             = "e-" # e- for electrons
+d:So/Source/BeamEnergy               = 5 MeV
+u:So/Source/BeamEnergySpread         = 0
+s:So/Source/BeamPositionDistribution = "Flat"
+s:So/Source/BeamPositionCutoffShape  = "Rectangle"
+d:So/Source/BeamPositionCutoffX      = 5. cm # Half length of field size in x
+d:So/Source/BeamPositionCutoffY      = 5. cm # Half length of field size in y
+s:So/Source/BeamAngularDistribution  = "None"
+i:So/Source/NumberOfHistoriesInRun   = 20000000
+
+s:Ge/BeamPosition/Parent = "World"
+s:Ge/BeamPosition/Type   = "Group"
+d:Ge/BeamPosition/TransX = 0. cm
+d:Ge/BeamPosition/TransY = 0. cm
+d:Ge/BeamPosition/TransZ = Ge/World/HLZ cm
+d:Ge/BeamPosition/RotX   = 180. deg
+d:Ge/BeamPosition/RotY   = 0. deg
+d:Ge/BeamPosition/RotZ   = 0. deg
+
+# ===================================================== #
+#    Scorer, slabs of x mm thickness (nbrbins/2*HLZ cm) #
+#                                                       #
+# For electrons, use a value of HLZ according to the    #
+# expected range in water.                              #
+# ===================================================== #
+
+s:Ge/Scorer/Type       = "TsBox"
+s:Ge/Scorer/Parent     = "World"
+d:Ge/Scorer/HLX        =  0.5 cm
+d:Ge/Scorer/HLY        =  0.5 cm
+d:Ge/Scorer/HLZ        =  15 cm
+s:Ge/Scorer/Color      =  "blue"
+b:Ge/Scorer/IsParallel = "T"
+i:Ge/Scorer/ZBins      = 240
+d:Ge/Scorer/TransZ     = 0 cm
+
+
+# ---------------------------
+# Fluence é 
+# ---------------------------
+
+s:Sc/FluenceTot/Quantity                  = "Fluence"
+s:Sc/FluenceTot/Component                 = "Scorer"
+sv:Sc/FluenceTot/Report                   = 2 "sum" "Standard_Deviation"
+b:Sc/FluenceTot/OutputToConsole           = "F"
+s:Sc/FluenceTot/IfOutputFileAlreadyExists = "Increment"
+s:Sc/FluenceTot/OutputType                = "csv"
+s:Sc/FluencePrim/OutputFile               = "Fig_6_4_b_5MeV"
+
+sv:Sc/FluenceTot/OnlyIncludeParticlesNamed = 1 "e-"
+
+
+
+# ===================================================== #
+#        Graphics and miscellaneous parameters          #
+# ===================================================== #
+
+i:Ts/NumberOfThreads  = 7
+#b:Gr/Enable           = "T" # Set to false F to run simulation without graphics
+#b:Ts/PauseBeforeQuit  = "T" # Set to false F to run simulation without graphics
+
+#s:Gr/View/Type             = "OpenGL"
+#d:Gr/View/Theta            = 90 deg
+#d:Gr/View/PerspectiveAngle = 50 deg
+#b:Gr/View/IncludeAxes      = "True"
+#d:Gr/View/AxesSize         = 15 cm
+#u:Gr/View/Zoom             = 1.
+#b:Ge/QuitIfOverlapDetected = "False"
