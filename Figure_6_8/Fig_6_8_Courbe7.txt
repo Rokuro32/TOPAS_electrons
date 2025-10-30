@@ -38,11 +38,13 @@ s:Ge/World/Material = "G4_WATER"
 
 
 #  7. full
-sv:Ph/Default/Modules = 1 "g4em-standard_opt4"
-b:Ph/EnableMultipleScattering = "T"
-b:Ph/EnableBremsstrahlung = "T"
-b:Ph/EnableIonisation = "T"
-b:Ph/EnableKleinNishinaElectrons = "T"
+#sv:Ph/Default/Modules = 1 "g4em-standard_opt4"
+
+s:Ts/Geant4Command/1 = "/run/setCut 0.01 mm e-"
+s:Ts/Geant4Command/2 = "/run/setCut 0.01 mm e+"
+s:Ts/Geant4Command/3 = "/run/setCut 0.01 mm gamma"
+
+
 
 
 

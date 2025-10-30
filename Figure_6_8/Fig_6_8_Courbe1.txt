@@ -38,6 +38,8 @@ s:Ge/World/Material = "G4_WATER"
 
 
 #  1. CSDA_el
+#sv:Ph/Default/Modules = 1 "g4em-standard_opt4"
+
 s:Ts/Geant4Command/1 = "/process/em/fluctuation false"
 s:Ts/Geant4Command/2 = "/process/inactivate msc"
 s:Ts/Geant4Command/3 = "/process/inactivate eBrem"

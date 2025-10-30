@@ -38,11 +38,14 @@ s:Ge/World/Material = "G4_WATER"
 
 
 #  6. Brem only
-sv:Ph/Default/Modules = 1 "g4em-standard_opt4"
-b:Ph/EnableMultipleScattering = "F"
-b:Ph/EnableBremsstrahlung = "T"
-b:Ph/EnableIonisation = "F"
-b:Ph/EnableKleinNishinaElectrons = "F"
+#sv:Ph/Default/Modules = 1 "g4em-standard_opt4"
+
+s:Ts/Geant4Command/1 = "/process/inactivate msc"
+s:Ts/Geant4Command/2 = "/process/inactivate eIoni"
+s:Ts/Geant4Command/3 = "/process/activate eBrem"
+s:Ts/Geant4Command/4 = "/run/setCut 0.01 mm e-"
+s:Ts/Geant4Command/5 = "/run/setCut 0.01 mm e+"
+s:Ts/Geant4Command/6 = "/run/setCut 0.01 mm gamma"
 
 
 
