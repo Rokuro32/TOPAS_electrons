@@ -38,18 +38,28 @@ s:Ge/World/Material = "G4_WATER"
 
 
 #  3. CSDA + ms
-#sv:Ph/Default/Modules = 1 "g4em-standard_opt4"
+#sv:Ph/Default/Modules   = 1 "g4em-standard_opt0"
 
-s:Ts/Geant4Command/1 = "/process/em/fluctuation true"
-s:Ts/Geant4Command/2 = "/process/activate msc"
-s:Ts/Geant4Command/3 = "/process/inactivate eBrem"
-s:Ts/Geant4Command/4 = "/run/setCut 20 MeV e-"
-s:Ts/Geant4Command/5 = "/run/setCut 20 MeV e+"
-s:Ts/Geant4Command/6 = "/run/setCut 20 MeV gamma"
+# --- physics: start from a basic EM physics list (opt0) then override processes ---
+s:Ph/Default/ModularPhysicsList = "g4em-standard_opt0"      # base EM physics
+d:Ph/Default/CutForAllParticles = 10000 mm                  # very large range cut -> no secondaries
+b:Ph/Default/EnableMultipleScattering = "F"                # ensure MSC disabled where possible
 
+# Send explicit Geant4 commands (s: means string parameter to pass to Geant4)
+s:Ph/Default/Geant4Command/1 = "/process/inactivate msc"          # inactivate multiple scattering
+s:Ph/Default/Geant4Command/2 = "/process/inactivate eBrem"        # inactivate bremsstrahlung
+s:Ph/Default/Geant4Command/3 = "/process/em/fluctuation false"     # disable energy-loss fluctuations (no straggling)
 
+# (we keep ionisation as continuous loss; do NOT inactivate eIoni)
+# Optional: inactivate any additional electromagnetic processes that produce secondaries
+s:Ph/Default/Geant4Command/4 = "/process/inactivate phot"         # if photon processes are present (optional)
+s:Ph/Default/Geant4Command/5 = "/process/inactivate eplusAnnihilation"  # not necessary for e- but safe
 
+# Step control: allow long steps (no artificial step limiting)
+d:Ph/Default/StepMax = 1000 mm       # large step max so stepper doesn't split too finely
 
+# random seed (for reproducibility)
+i:Ph/Default/RandomSeed = 12345
 
 # ====================================================== #
 #            Source component and its position           #
